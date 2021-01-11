@@ -1,4 +1,6 @@
 import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 //configuration from env
 const firebaseConfig = {
@@ -11,4 +13,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export default firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+// Firebaseui 인증(로그인)
+export const authService = firebase.auth();
+// 구글
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+export const firestoreService = firebase.firestore();
