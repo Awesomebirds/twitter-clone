@@ -7,7 +7,9 @@ const Tweet = ({ isCreator, id, text }) => {
 
   //Tweet 지우기
   const deleteTweet = async (id) => {
-    await firestoreService.collection("tweets").doc(id).delete();
+    // 사용자에게 물어보고 지움
+    const confirm = window.confirm("are you sure want to delete this?");
+    confirm && (await firestoreService.collection("tweets").doc(id).delete());
   };
 
   //Tweet 편집하기

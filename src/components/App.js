@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 
 const App = () => {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         //user is signed in
-        setIsLoggedIn(true);
+        setUser(authService.currentUser.uid);
       } else {
         //user is not signed in
-        setIsLoggedIn(false);
+        setUser(null);
       }
       //loaded
       setInit(true);
@@ -22,7 +22,7 @@ const App = () => {
 
   return init ? (
     <>
-      <Router isLoggedIn={isLoggedIn} user={authService.currentUser.uid} />
+      <Router user={user} />
       <footer>Cloned by Banana Coder | {new Date().getFullYear()}</footer>
     </>
   ) : (
