@@ -1,7 +1,6 @@
 import Router from "components/Router";
 import { authService } from "myFirebase";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
   const [init, setInit] = useState(false);
@@ -23,7 +22,7 @@ const App = () => {
 
   return init ? (
     <>
-      <Router isLoggedIn={isLoggedIn} />
+      <Router isLoggedIn={isLoggedIn} user={authService.currentUser.uid} />
       <footer>Cloned by Banana Coder | {new Date().getFullYear()}</footer>
     </>
   ) : (

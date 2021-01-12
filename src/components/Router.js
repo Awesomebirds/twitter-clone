@@ -4,14 +4,14 @@ import Home from "routers/Home";
 import Profile from "routers/Profile";
 import EditProfile from "routers/EditProfile";
 
-const RouterComponent = ({ isLoggedIn }) => {
+const RouterComponent = ({ isLoggedIn, user }) => {
   return (
     <Router>
       <Switch>
         {isLoggedIn ? (
           <>
             <Route exact path="/">
-              <Home />
+              <Home user={user} />
             </Route>
             <Route exact path="/profile">
               <Profile />

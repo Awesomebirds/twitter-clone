@@ -1,13 +1,14 @@
-import { authService, firestoreService } from "myFirebase";
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
+import { firestoreService } from "myFirebase";
+import Header from "components/Header";
+import Tweet from "components/Tweet";
 
-const Home = () => {
+const Home = ({ user }) => {
   const [tweet, setTweet] = useState("");
   const [tweetList, setTweetList] = useState([]);
 
-  //Form
+  //Tweet 만들기
   //Input
   const handleChange = (event) => {
     setTweet(event.target.value);
@@ -20,7 +21,7 @@ const Home = () => {
     await firestoreService.collection("tweets").add({
       text: tweet,
       createdAt: Date.now(),
-      createdBy: authService.currentUser.uid,
+      createdBy: user,
     });
 
     //내용 비우기
@@ -45,13 +46,7 @@ const Home = () => {
   return (
     <div>
       <div>
-        <button
-          onClick={() => {
-            authService.signOut();
-          }}
-        >
-          로그아웃
-        </button>
+        <Header />
       </div>
       <form onSubmit={handleSubmit}>
         <input
@@ -64,7 +59,14 @@ const Home = () => {
       </form>
       <section>
         {tweetList.map((tweet) => (
-          <div key={tweet.id}>{tweet.text}</div>
+          <Tweet
+            key={tweet.id}
+            isCreator={user === tweet.createdBy}
+            id={tweet.id}
+            text={tweet.text}
+            createdBy={tweet.createdBy}
+            createdAt={tweet.createdAt}
+          />
         ))}
       </section>
     </div>
