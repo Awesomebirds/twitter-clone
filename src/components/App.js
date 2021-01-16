@@ -10,7 +10,7 @@ const App = () => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         //user is signed in
-        setUser(authService.currentUser.uid);
+        setUser(user.uid);
       } else {
         //user is not signed in
         setUser(null);

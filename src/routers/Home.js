@@ -14,6 +14,16 @@ const Home = ({ user }) => {
     setTweet(event.target.value);
   };
 
+  //ImgInput
+  const onImgChange = (event) => {
+    const theFile = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (finishedEvent) => {
+      console.log(finishedEvent.target.result);
+      reader.readAsDataURL(theFile);
+    };
+  };
+
   //Submit
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,6 +65,7 @@ const Home = ({ user }) => {
           onChange={handleChange}
           placeholder="what's on your mind?"
         />
+        <input type="file" accept="image/*" onChange={onImgChange} />
         <input type="submit" value="tweet" />
       </form>
       <section>
